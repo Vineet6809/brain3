@@ -48,6 +48,9 @@ A free-tier, CPU-only image ingestion and graph visualization system that proces
   - Error handling and reporting
 
 ### Frontend (React)
+- **Enhanced 3D Visualization**: Image thumbnails displayed on nodes using Three.js sprites
+- **Search Functionality**: Real-time search with result highlighting
+- **Progress Indicators**: Visual feedback during uploads
 - Interactive 3D force graph visualization using `react-force-graph-3d`
 - Upload images directly from the UI
 - Click nodes to view detailed metadata
