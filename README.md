@@ -171,19 +171,44 @@ The frontend will be available at `http://localhost:3000` and backend at `http:/
 ## Usage
 
 ### 1. Upload Images
+
+**Single Image Upload (Web Interface):**
 - Open the web interface at `http://localhost:3000`
 - Click "Upload Image" button
 - Select an image file (JPG, PNG, etc.)
 - Wait for processing (first time will download AI models ~1-2GB)
 
-### 2. Build FAISS Index
+**Batch Upload (Command Line):**
+```bash
+# Process all images in a folder
+python backend/batch_ingest.py /path/to/your/images
+
+# Examples
+python backend/batch_ingest.py data/images
+python backend/batch_ingest.py ~/Pictures/vacation
+```
+
+The batch script will:
+- Process all images with progress tracking
+- Automatically detect and skip duplicates
+- Show detailed status for each image
+- Handle errors gracefully
+
+### 2. Search Images
+- Use the search bar at the top of the control panel
+- Search by filename, OCR text, or extracted entities
+- Matching nodes will be highlighted in the graph
+- Click on a highlighted node to view details
+
+### 3. Build FAISS Index
 After uploading multiple images, click "Build Index" to create vector indexes for similarity search.
 
-### 3. Explore the Graph
-- Rotate: Left mouse drag
-- Zoom: Mouse wheel
-- Pan: Right mouse drag
-- Click nodes to view detailed information
+### 4. Explore the Graph
+- **Rotate**: Left mouse drag
+- **Zoom**: Mouse wheel
+- **Pan**: Right mouse drag
+- **Click nodes**: View detailed information with thumbnails
+- **Image Thumbnails**: Visible directly on each node for instant visual identification
 
 ### 4. API Usage Examples
 
