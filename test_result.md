@@ -120,41 +120,57 @@ backend:
         comment: "API endpoint at /api/ingest is working correctly. Returns proper JSON responses."
 
 frontend:
-  - task: "Image upload handler with Response error fix"
+  - task: "All fetch calls - Response error fix"
     implemented: true
-    working: false
+    working: "unknown"
     file: "frontend/src/EnhancedApp.js"
-    stuck_count: 1
+    stuck_count: 2
     priority: "high"
     needs_retesting: true
     status_history:
+      - working: "unknown"
+        agent: "main"
+        comment: |
+          COMPREHENSIVE FIX: Fixed ALL fetch calls in the application.
+          After user provided screenshot, identified the issue was NOT just in handleFileUpload.
+          
+          Root cause: The error "Response body is already used" was occurring in MULTIPLE places:
+          - fetchMetadata (categories, connection types, stats)
+          - fetchGraph
+          - handleFileUpload
+          - handleSearch
+          - handleNodeClick
+          - buildIndex (MOST LIKELY culprit based on UI screenshot)
+          
+          All these functions were calling response.json() WITHOUT checking response.ok first.
+          When backend returns error response (404, 500), parsing as JSON without checking causes the clone error.
+          
+          Changes applied to ALL fetch calls:
+          1. Check response.ok BEFORE calling response.json()
+          2. Read error responses as text when not ok
+          3. Proper error logging with status codes
+          4. Throw meaningful errors for user display
+          
+          Files fixed:
+          - EnhancedApp.js (active app)
+          - App.js (backup)
+          
+          Frontend restarted. Ready for comprehensive testing.
       - working: false
         agent: "user"
-        comment: "User reported still seeing the same 'Response body is already used' error after initial fix attempt"
+        comment: "User provided screenshot showing 'Response body is already used' error in UI after clicking Build Index or Upload"
+      - working: false
+        agent: "user"
+        comment: "User reported still seeing the same error after initial fix attempt"
       - working: true
         agent: "main"
         comment: |
-          Fixed the 'Response body is already used' error in handleFileUpload function.
-          Changes made:
-          1. Added response.ok check before parsing JSON
-          2. Moved clearInterval before response parsing
-          3. Improved error handling with try-catch
-          4. Reset file input after selection (event.target.value = '')
-          5. Clear status messages after 2 seconds
-          Root cause: Response body was being consumed without proper checks, causing clone errors.
-          Update: Restarted frontend service. Need to investigate further as user still sees error.
-
-  - task: "Image upload handler fix (backup file)"
-    implemented: true
-    working: true
-    file: "frontend/src/App.js"
-    stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Applied same fix to backup App.js file for consistency"
+          Initial fix only in handleFileUpload function.
+          Added response.ok check before parsing JSON
+          Moved clearInterval before response parsing
+          Improved error handling with try-catch
+          Reset file input after selection (event.target.value = '')
+          Clear status messages after 2 seconds
 
 metadata:
   created_by: "main_agent"
