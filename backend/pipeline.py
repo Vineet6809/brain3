@@ -304,6 +304,18 @@ class ImagePipeline:
                 return json.load(f)
         return None
     
+    def get_all_metadata(self) -> list:
+        """Get metadata for all images"""
+        all_metadata = []
+        for metadata_file in self.metadata_dir.glob("*.json"):
+            try:
+                with open(metadata_file, 'r') as f:
+                    metadata = json.load(f)
+                    all_metadata.append(metadata)
+            except Exception:
+                continue
+        return all_metadata
+    
     def build_graph(self, similarity_threshold: float = 0.8) -> Dict:
         """Build graph based on similarity and shared entities"""
         conn = sqlite3.connect(self.db_path)
