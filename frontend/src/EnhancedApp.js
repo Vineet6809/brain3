@@ -93,6 +93,11 @@ function EnhancedApp() {
         body: Object.keys(filters).length > 0 ? JSON.stringify(filters) : undefined,
       });
       
+      if (!response.ok) {
+        console.error('Error fetching graph:', response.status, response.statusText);
+        return;
+      }
+      
       const data = await response.json();
       setGraph(data);
     } catch (error) {
