@@ -145,7 +145,7 @@ yarn start
 
 The frontend will be available at `http://localhost:3000` and backend at `http://localhost:8000`.
 
-### Option 2: Docker (Recommended for Production)
+### Option 3: Docker (Recommended for Production)
 
 #### Prerequisites
 - Docker
