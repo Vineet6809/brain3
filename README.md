@@ -210,7 +210,7 @@ After uploading multiple images, click "Build Index" to create vector indexes fo
 - **Click nodes**: View detailed information with thumbnails
 - **Image Thumbnails**: Visible directly on each node for instant visual identification
 
-### 4. API Usage Examples
+### 5. API Usage Examples
 
 **Upload an image:**
 ```bash
