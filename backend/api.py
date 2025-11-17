@@ -74,3 +74,39 @@ async def build_index():
         return {"status": "success", "message": "Indexes built successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.get("/search")
+async def search_nodes(query: str):
+    """
+    Search nodes by filename, OCR text, or entities
+    """
+    try:
+        if not query or len(query.strip()) == 0:
+            return {"nodes": []}
+        
+        query = query.lower().strip()
+        matching_nodes = []
+        
+        # Get all metadata
+        all_metadata = pipeline.get_all_metadata()
+        
+        for metadata in all_metadata:
+            # Search in filename
+            if query in metadata.get('filename', '').lower():
+                matching_nodes.append(metadata)
+                continue
+            
+            # Search in OCR text
+            if query in metadata.get('ocr_text', '').lower():
+                matching_nodes.append(metadata)
+                continue
+            
+            # Search in entities
+            entities = metadata.get('entities', [])
+            if any(query in entity.lower() for entity in entities):
+                matching_nodes.append(metadata)
+                continue
+        
+        return {"nodes": matching_nodes, "count": len(matching_nodes)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
