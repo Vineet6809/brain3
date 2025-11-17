@@ -143,27 +143,28 @@ class EnhancedImagePipeline:
         """Extract text using both Tesseract and EasyOCR for better results"""
         all_text_lines = []
         
-        # Use EasyOCR for better text detection
-        try:
-            reader = get_easyocr_reader()
-            # Convert PIL Image to numpy array
-            img_array = np.array(image)
-            results = reader.readtext(img_array)
-            
-            # Extract all text detected by EasyOCR
-            for (bbox, text, prob) in results:
-                if prob > 0.3:  # Only include text with confidence > 30%
-                    all_text_lines.append(text.strip())
-        except Exception as e:
-            print(f"EasyOCR failed: {e}")
-        
-        # Also use Tesseract as backup
+        # Use Tesseract first (lighter on memory)
         try:
             tesseract_text = pytesseract.image_to_string(image)
             tesseract_lines = [line.strip() for line in tesseract_text.split('\n') if line.strip()]
             all_text_lines.extend(tesseract_lines)
         except Exception as e:
             print(f"Tesseract OCR failed: {e}")
+        
+        # Use EasyOCR for better text detection (only if needed)
+        try:
+            reader = get_easyocr_reader()
+            if reader is not None:
+                # Convert PIL Image to numpy array
+                img_array = np.array(image)
+                results = reader.readtext(img_array, detail=1)
+                
+                # Extract all text detected by EasyOCR
+                for (bbox, text, prob) in results:
+                    if prob > 0.3:  # Only include text with confidence > 30%
+                        all_text_lines.append(text.strip())
+        except Exception as e:
+            print(f"EasyOCR failed: {e}")
         
         # Remove duplicates while preserving order
         seen = set()
