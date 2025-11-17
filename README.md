@@ -1,1 +1,267 @@
-# Here are your Instructions
+# Image Knowledge Graph System
+
+A free-tier, CPU-only image ingestion and graph visualization system that processes images through OCR, generates embeddings, and displays relationships in an interactive 3D graph.
+
+## Features
+
+### Backend (FastAPI)
+- **Image Ingestion Pipeline**
+  - SHA256 + perceptual hash (pHash) deduplication
+  - Tesseract OCR for text extraction
+  - SentenceTransformer text embeddings (`all-MiniLM-L6-v2`)
+  - CLIP image embeddings (`openai/clip-vit-base-patch32`)
+  - Metadata storage in JSON + SQLite
+  - Thumbnail generation
+
+- **Vector Search**
+  - FAISS indexes for text and image embeddings
+  - Fast similarity search
+
+- **Graph Building**
+  - Automatic edge creation based on:
+    - Shared named entities
+    - Embedding similarity
+
+- **API Endpoints**
+  - `POST /api/ingest` - Upload and process images
+  - `GET /api/node/{id}` - Get metadata for a specific image
+  - `GET /api/thumbnail/{id}` - Get thumbnail for an image
+  - `GET /api/graph` - Get full graph structure (nodes + links)
+  - `POST /api/build-index` - Build FAISS indexes
+  - `GET /api/` - Health check endpoint
+  - `POST /api/status` - Create status check
+  - `GET /api/status` - Get status checks
+
+### Frontend (React)
+- Interactive 3D force graph visualization using `react-force-graph-3d`
+- Upload images directly from the UI
+- Click nodes to view detailed metadata
+- View thumbnails and OCR text
+- See extracted named entities
+- Real-time graph updates
+
+## Technology Stack
+
+### Backend
+- FastAPI
+- Pillow, imagehash
+- Tesseract OCR
+- SentenceTransformers
+- CLIP (Transformers)
+- FAISS (CPU)
+- spaCy (`en_core_web_sm`)
+- SQLite
+- MongoDB (for other app data)
+
+### Frontend
+- React 19
+- react-force-graph-3d
+- Three.js
+
+## Installation & Setup
+
+### Option 1: Local Installation (with virtual environment)
+
+#### Prerequisites
+- Python 3.11+
+- Node.js 18+
+- System dependencies: Tesseract OCR
+
+#### Install System Dependencies
+```bash
+# Run the install script
+chmod +x scripts/install_deps.sh
+./scripts/install_deps.sh
+```
+
+Or manually:
+```bash
+# Install Tesseract
+sudo apt-get update
+sudo apt-get install -y tesseract-ocr libtesseract-dev
+
+# Create Python virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Install Python packages
+pip install -r backend/requirements.txt
+
+# Download spaCy model
+python -m spacy download en_core_web_sm
+
+# Install frontend dependencies
+cd frontend
+yarn install
+cd ..
+```
+
+#### Run the Application
+
+**Backend:**
+```bash
+# Activate virtual environment
+source .venv/bin/activate
+
+# Run backend server
+uvicorn backend.server:app --reload --host 0.0.0.0 --port 8000
+```
+
+**Frontend:**
+```bash
+# In a new terminal
+cd frontend
+yarn start
+```
+
+The frontend will be available at `http://localhost:3000` and backend at `http://localhost:8000`.
+
+### Option 2: Docker (Recommended for Production)
+
+#### Prerequisites
+- Docker
+- Docker Compose
+
+#### Run with Docker
+```bash
+# Build and start all services
+docker-compose up --build
+
+# Or run in detached mode
+docker-compose up --build -d
+
+# View logs
+docker-compose logs -f
+
+# Stop services
+docker-compose down
+```
+
+The frontend will be available at `http://localhost:3000` and backend at `http://localhost:8000`.
+
+## Usage
+
+### 1. Upload Images
+- Open the web interface at `http://localhost:3000`
+- Click "Upload Image" button
+- Select an image file (JPG, PNG, etc.)
+- Wait for processing (first time will download AI models ~1-2GB)
+
+### 2. Build FAISS Index
+After uploading multiple images, click "Build Index" to create vector indexes for similarity search.
+
+### 3. Explore the Graph
+- Rotate: Left mouse drag
+- Zoom: Mouse wheel
+- Pan: Right mouse drag
+- Click nodes to view detailed information
+
+### 4. API Usage Examples
+
+**Upload an image:**
+```bash
+curl -X POST "http://localhost:8000/api/ingest" \
+  -F "file=@/path/to/image.jpg"
+```
+
+**Get node metadata:**
+```bash
+curl "http://localhost:8000/api/node/{image_id}"
+```
+
+**Get graph data:**
+```bash
+curl "http://localhost:8000/api/graph"
+```
+
+**Build FAISS index:**
+```bash
+curl -X POST "http://localhost:8000/api/build-index"
+```
+
+## Testing
+
+```bash
+# Run pytest tests
+pytest tests/ -v
+
+# Or run specific test
+pytest tests/test_ingest.py -v
+```
+
+## Project Structure
+
+```
+.
+├── backend/
+│   ├── pipeline.py          # Image processing pipeline
+│   ├── api.py               # Image API endpoints
+│   ├── server.py            # Main FastAPI application
+│   ├── requirements.txt     # Python dependencies
+│   ├── Dockerfile           # Backend Docker image
+│   └── .env                 # Backend environment variables
+├── frontend/
+│   ├── src/
+│   │   ├── App.js           # Main React component with 3D graph
+│   │   ├── App.css          # Styles
+│   │   └── index.js         # Entry point
+│   ├── package.json         # Node.js dependencies
+│   ├── Dockerfile           # Frontend Docker image
+│   └── .env                 # Frontend environment variables
+├── data/                    # Data directory (auto-created)
+│   ├── images/              # Original images
+│   ├── thumbnails/          # Generated thumbnails
+│   ├── metadata/            # JSON metadata files
+│   ├── indexes/             # FAISS indexes
+│   └── metadata.db          # SQLite database
+├── tests/
+│   ├── test_ingest.py       # Integration tests
+│   └── images/              # Test images
+├── scripts/
+│   └── install_deps.sh      # Installation script
+├── docker-compose.yml       # Docker Compose configuration
+└── README.md                # This file
+```
+
+## Data Storage
+
+- **SQLite**: Image metadata, embeddings, deduplication hashes
+- **MongoDB**: Application data (status checks, etc.)
+- **JSON Files**: Individual image metadata
+- **File System**: Original images, thumbnails, FAISS indexes
+
+## Notes
+
+- **First Run**: The first image upload will download AI models (~1-2GB). This is a one-time download.
+- **CPU Only**: All models run on CPU - no GPU required.
+- **Free Tier**: Uses only open-source, free tools and models.
+- **Deduplication**: SHA256 hash prevents exact duplicates. pHash can detect near-duplicates.
+- **Scalability**: FAISS indexes scale to millions of images efficiently.
+
+## Troubleshooting
+
+### Tesseract not found
+Make sure Tesseract is installed:
+```bash
+sudo apt-get install tesseract-ocr libtesseract-dev
+```
+
+### spaCy model not found
+Download the spaCy model:
+```bash
+python -m spacy download en_core_web_sm
+```
+
+### Port already in use
+Change ports in docker-compose.yml or when running locally.
+
+### Out of memory
+Reduce batch sizes or use smaller images. The system is designed for CPU-only operation.
+
+## License
+
+MIT License
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.
