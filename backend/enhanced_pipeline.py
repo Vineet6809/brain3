@@ -53,7 +53,11 @@ def get_easyocr_reader():
     global _easyocr_reader
     if _easyocr_reader is None:
         print("Loading EasyOCR reader...")
-        _easyocr_reader = easyocr.Reader(['en'], gpu=False)
+        try:
+            _easyocr_reader = easyocr.Reader(['en'], gpu=False, verbose=False)
+        except Exception as e:
+            print(f"Failed to load EasyOCR: {e}")
+            _easyocr_reader = None
     return _easyocr_reader
 
 
