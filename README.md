@@ -36,9 +36,16 @@ A free-tier, CPU-only image ingestion and graph visualization system that proces
   - `GET /api/thumbnail/{id}` - Get thumbnail for an image
   - `GET /api/graph` - Get full graph structure (nodes + links)
   - `POST /api/build-index` - Build FAISS indexes
+  - `GET /api/search?query=text` - Search nodes by text (NEW)
   - `GET /api/` - Health check endpoint
   - `POST /api/status` - Create status check
   - `GET /api/status` - Get status checks
+
+- **Batch Processing**
+  - Command-line script for folder ingestion
+  - Progress tracking with tqdm
+  - Automatic duplicate detection
+  - Error handling and reporting
 
 ### Frontend (React)
 - Interactive 3D force graph visualization using `react-force-graph-3d`
