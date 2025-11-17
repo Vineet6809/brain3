@@ -189,9 +189,16 @@ function App() {
       const response = await fetch(`${BACKEND_URL}/api/build-index`, {
         method: 'POST',
       });
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to build index: ${errorText}`);
+      }
+      
       const result = await response.json();
-      setUploadStatus(result.message);
+      setUploadStatus(result.message || 'Index built successfully');
     } catch (error) {
+      console.error('Build index error:', error);
       setUploadStatus(`Error: ${error.message}`);
     }
   };
