@@ -191,6 +191,12 @@ function EnhancedApp() {
 
     try {
       const response = await fetch(`${BACKEND_URL}/api/search?query=${encodeURIComponent(query)}`);
+      
+      if (!response.ok) {
+        console.error('Search failed:', response.status, response.statusText);
+        return;
+      }
+      
       const data = await response.json();
       
       setSearchResults(data.nodes || []);
