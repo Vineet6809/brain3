@@ -279,7 +279,12 @@ pytest tests/test_ingest.py -v
 │   ├── test_ingest.py       # Integration tests
 │   └── images/              # Test images
 ├── scripts/
-│   └── install_deps.sh      # Installation script
+│   ├── install_deps.sh      # Installation script
+│   └── start_replit.sh      # Replit startup script (NEW)
+├── .replit                  # Replit configuration (NEW)
+├── replit.nix               # Replit dependencies (NEW)
+├── replitinstruction.md     # Replit setup guide (NEW)
+├── IMPROVEMENTS_AND_SUGGESTIONS.md  # Feature roadmap (NEW)
 ├── docker-compose.yml       # Docker Compose configuration
 └── README.md                # This file
 ```
