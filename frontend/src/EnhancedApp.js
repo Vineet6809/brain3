@@ -39,6 +39,16 @@ function EnhancedApp() {
           fetch(`${BACKEND_URL}/api/stats`)
         ]);
         
+        // Check responses before parsing
+        if (!categoriesRes.ok || !connectionTypesRes.ok || !statsRes.ok) {
+          console.error('Error fetching metadata - status codes:', {
+            categories: categoriesRes.status,
+            connectionTypes: connectionTypesRes.status,
+            stats: statsRes.status
+          });
+          return;
+        }
+        
         const categoriesData = await categoriesRes.json();
         const connectionTypesData = await connectionTypesRes.json();
         const statsData = await statsRes.json();
