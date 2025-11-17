@@ -122,12 +122,15 @@ backend:
 frontend:
   - task: "Image upload handler with Response error fix"
     implemented: true
-    working: true
+    working: false
     file: "frontend/src/EnhancedApp.js"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
     needs_retesting: true
     status_history:
+      - working: false
+        agent: "user"
+        comment: "User reported still seeing the same 'Response body is already used' error after initial fix attempt"
       - working: true
         agent: "main"
         comment: |
@@ -139,6 +142,7 @@ frontend:
           4. Reset file input after selection (event.target.value = '')
           5. Clear status messages after 2 seconds
           Root cause: Response body was being consumed without proper checks, causing clone errors.
+          Update: Restarted frontend service. Need to investigate further as user still sees error.
 
   - task: "Image upload handler fix (backup file)"
     implemented: true
