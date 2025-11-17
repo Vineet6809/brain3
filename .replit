@@ -1,0 +1,13 @@
+run = "bash scripts/start_replit.sh"
+
+[nix]
+channel = "stable-23_11"
+
+[deployment]
+run = ["sh", "-c", "bash scripts/start_replit.sh"]
+
+[env]
+REACT_APP_BACKEND_URL = "https://${REPL_SLUG}.${REPL_OWNER}.repl.co"
+MONGO_URL = "mongodb://localhost:27017"
+DB_NAME = "image_graph_db"
+CORS_ORIGINS = "*"
