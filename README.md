@@ -233,6 +233,12 @@ curl "http://localhost:8000/api/graph"
 curl -X POST "http://localhost:8000/api/build-index"
 ```
 
+**Search images:**
+```bash
+curl "http://localhost:8000/api/search?query=invoice"
+curl "http://localhost:8000/api/search?query=person"
+```
+
 ## Testing
 
 ```bash
