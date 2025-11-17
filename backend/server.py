@@ -11,7 +11,7 @@ import uuid
 from datetime import datetime, timezone
 
 # Import the image pipeline API
-from backend.api import api_router as pipeline_router
+from api import api_router as pipeline_router
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
