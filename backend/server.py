@@ -68,8 +68,9 @@ async def get_status_checks():
     
     return status_checks
 
-# Include the router in the main app
-app.include_router(api_router)
+# Include the routers in the main app
+app.include_router(api_router)  # Status check endpoints
+app.include_router(pipeline_router)  # Image pipeline endpoints
 
 app.add_middleware(
     CORSMiddleware,
