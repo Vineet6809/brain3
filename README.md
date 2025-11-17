@@ -255,15 +255,16 @@ pytest tests/test_ingest.py -v
 .
 ├── backend/
 │   ├── pipeline.py          # Image processing pipeline
-│   ├── api.py               # Image API endpoints
+│   ├── api.py               # Image API endpoints (with search)
 │   ├── server.py            # Main FastAPI application
+│   ├── batch_ingest.py      # Batch processing script (NEW)
 │   ├── requirements.txt     # Python dependencies
 │   ├── Dockerfile           # Backend Docker image
 │   └── .env                 # Backend environment variables
 ├── frontend/
 │   ├── src/
-│   │   ├── App.js           # Main React component with 3D graph
-│   │   ├── App.css          # Styles
+│   │   ├── App.js           # Enhanced 3D graph with image nodes (NEW)
+│   │   ├── App.css          # Enhanced styles (NEW)
 │   │   └── index.js         # Entry point
 │   ├── package.json         # Node.js dependencies
 │   ├── Dockerfile           # Frontend Docker image
