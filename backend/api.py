@@ -3,7 +3,7 @@ from fastapi.responses import FileResponse, JSONResponse
 from pathlib import Path
 import shutil
 import uuid
-from .pipeline import ImagePipeline
+from pipeline import ImagePipeline
 
 # Initialize pipeline
 pipeline = ImagePipeline(data_dir="data")
