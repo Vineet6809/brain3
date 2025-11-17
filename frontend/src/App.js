@@ -24,6 +24,12 @@ function App() {
     try {
       setLoading(true);
       const response = await fetch(`${BACKEND_URL}/api/graph`);
+      
+      if (!response.ok) {
+        console.error('Error fetching graph:', response.status, response.statusText);
+        return;
+      }
+      
       const data = await response.json();
       setGraph(data);
     } catch (error) {
