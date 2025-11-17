@@ -78,7 +78,18 @@ A free-tier, CPU-only image ingestion and graph visualization system that proces
 
 ## Installation & Setup
 
-### Option 1: Local Installation (with virtual environment)
+### Option 1: Replit (Easiest - One-Click Deploy)
+
+[![Run on Replit](https://replit.com/badge/github/yourusername/image-knowledge-graph)](https://replit.com/@yourusername/image-knowledge-graph)
+
+1. Click the "Run on Replit" button above
+2. Wait for automatic setup (5-10 minutes for first run)
+3. The app will start automatically
+4. Access the web interface from the Replit webview
+
+**See `replitinstruction.md` for detailed Replit setup guide.**
+
+### Option 2: Local Installation (with virtual environment)
 
 #### Prerequisites
 - Python 3.11+
