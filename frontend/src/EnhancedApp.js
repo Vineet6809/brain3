@@ -230,6 +230,12 @@ function EnhancedApp() {
   const handleNodeClick = useCallback(async (node) => {
     try {
       const response = await fetch(`${BACKEND_URL}/api/node/${node.id}`);
+      
+      if (!response.ok) {
+        console.error('Error fetching node details:', response.status, response.statusText);
+        return;
+      }
+      
       const metadata = await response.json();
       setSelectedNode({
         ...metadata,
