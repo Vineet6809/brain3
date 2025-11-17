@@ -58,3 +58,4 @@ node_modules/
 # Logs
 *.log
 /tmp/
+frontend/node_modules/.cache/default-development/0.pack
