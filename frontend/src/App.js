@@ -42,26 +42,35 @@ function App() {
     const file = event.target.files[0];
     if (!file) return;
 
+    // Reset the input value to allow uploading the same file again
+    event.target.value = '';
+
     const formData = new FormData();
     formData.append('file', file);
+
+    const progressInterval = setInterval(() => {
+      setUploadProgress(prev => Math.min(prev + 10, 90));
+    }, 200);
 
     try {
       setIsUploading(true);
       setUploadProgress(0);
       setUploadStatus('Uploading...');
-      
-      // Simulate progress (since we don't have real progress from server)
-      const progressInterval = setInterval(() => {
-        setUploadProgress(prev => Math.min(prev + 10, 90));
-      }, 200);
 
       const response = await fetch(`${BACKEND_URL}/api/ingest`, {
         method: 'POST',
         body: formData,
       });
-      const result = await response.json();
-      
+
       clearInterval(progressInterval);
+
+      // Check if response is ok before parsing
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Upload failed: ${errorText}`);
+      }
+
+      const result = await response.json();
       setUploadProgress(100);
       
       if (result.status === 'success') {
@@ -71,15 +80,26 @@ function App() {
           fetchGraph();
           setIsUploading(false);
           setUploadProgress(0);
-        }, 1000);
+          setUploadStatus('');
+        }, 2000);
       } else if (result.status === 'duplicate') {
         setUploadStatus(`Duplicate image detected. ID: ${result.id}`);
         setTimeout(() => {
           setIsUploading(false);
           setUploadProgress(0);
-        }, 1000);
+          setUploadStatus('');
+        }, 2000);
+      } else {
+        setUploadStatus(result.message || 'Upload completed');
+        setTimeout(() => {
+          setIsUploading(false);
+          setUploadProgress(0);
+          setUploadStatus('');
+        }, 2000);
       }
     } catch (error) {
+      clearInterval(progressInterval);
+      console.error('Upload error:', error);
       setUploadStatus(`Error: ${error.message}`);
       setIsUploading(false);
       setUploadProgress(0);
