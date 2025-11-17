@@ -34,3 +34,4 @@ faiss-cpu>=1.7.4
 spacy>=3.5.0
 tqdm>=4.65.0
 aiofiles>=23.1.0
+easyocr>=1.7.0
