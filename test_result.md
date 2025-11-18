@@ -242,7 +242,7 @@ test_plan:
     - "External URL routing issue (Kubernetes ingress)"
     - "ML dependencies for image upload functionality"
   stuck_tasks: 
-    - "External URL routing - backend returns 404 via https://backend-api-check.preview.emergentagent.com"
+    - "External URL routing - backend returns 404 via https://graph-api-check.preview.emergentagent.com"
   test_all: false
   test_priority: "high_first"
 
