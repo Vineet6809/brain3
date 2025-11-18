@@ -239,8 +239,10 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Image upload handler with Response error fix"
-  stuck_tasks: []
+    - "External URL routing issue (Kubernetes ingress)"
+    - "ML dependencies for image upload functionality"
+  stuck_tasks: 
+    - "External URL routing - backend returns 404 via https://backend-api-check.preview.emergentagent.com"
   test_all: false
   test_priority: "high_first"
 
