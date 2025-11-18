@@ -42,9 +42,9 @@ except (ImportError, ValueError) as e:
 
 try:
     import spacy
-except ImportError:
+except (ImportError, ValueError) as e:
     spacy = None
-    print("Warning: spacy not available")
+    print(f"Warning: spacy not available - {str(e)}")
 from tqdm import tqdm
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo import UpdateOne
