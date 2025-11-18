@@ -19,15 +19,18 @@
   "portsAttributes": {
     "3000": {
       "label": "Frontend",
-      "onAutoForward": "openBrowser"
+      "onAutoForward": "openBrowser",
+      "visibility": "public"
     },
     "8001": {
       "label": "Backend API",
-      "onAutoForward": "notify"
+      "onAutoForward": "notify",
+      "visibility": "public"
     },
     "27017": {
       "label": "MongoDB",
-      "onAutoForward": "silent"
+      "onAutoForward": "silent",
+      "visibility": "private"
     }
   },
 
@@ -41,17 +44,17 @@
         "mongodb.mongodb-vscode"
       ],
       "settings": {
-        "python.defaultInterpreterPath": "/workspaces/workspace/backend/.venv/bin/python",
+        "python.defaultInterpreterPath": "/workspaces/brain3/backend/.venv/bin/python",
         "python.linting.enabled": true,
         "python.linting.pylintEnabled": true,
         "python.formatting.provider": "black",
-        "editor.formatOnSave": true
+        "editor.formatOnSave": true,
+        "terminal.integrated.defaultProfile.linux": "bash"
       }
     }
   },
 
   "remoteEnv": {
-    "REACT_APP_BACKEND_URL": "https://${CODESPACE_NAME}-8001.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}",
     "MONGO_URL": "mongodb://localhost:27017",
     "DB_NAME": "image_graph_db",
     "CORS_ORIGINS": "*"
