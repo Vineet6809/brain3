@@ -76,6 +76,9 @@ async def get_status_checks():
 app.include_router(api_router)  # Status check endpoints
 app.include_router(pipeline_router)  # Image pipeline endpoints
 
+# Add comprehensive logging middleware FIRST (processes requests first)
+app.add_middleware(LoggingMiddleware)
+
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
