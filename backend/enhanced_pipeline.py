@@ -30,9 +30,9 @@ except (ImportError, ValueError) as e:
 
 try:
     import torch
-except ImportError:
+except (ImportError, ValueError) as e:
     torch = None
-    print("Warning: torch not available")
+    print(f"Warning: torch not available - {str(e)}")
 
 try:
     import faiss
