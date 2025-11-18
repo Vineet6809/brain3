@@ -328,3 +328,46 @@ agent_communication:
       3. Wait for automatic setup (5-10 minutes)
       4. Run: bash scripts/start_codespaces.sh
       5. Access via forwarded ports
+  - agent: "main"
+    message: |
+      GITHUB CODESPACES 404 ERROR FIXED
+      
+      ISSUE IDENTIFIED:
+      - User setup project in GitHub Codespaces but seeing 404 "Not Found" errors
+      - Frontend .env had Emergent platform URL (workspace-solver.preview.emergentagent.com)
+      - This URL doesn't work in Codespaces environment
+      - Services were running correctly, just wrong URL configuration
+      
+      ROOT CAUSE:
+      - Application was configured for Emergent platform's Kubernetes environment
+      - Codespaces requires different URL configuration based on codespace name
+      - Supervisor was managing services (auto-restart)
+      
+      SOLUTION IMPLEMENTED:
+      ✅ Updated frontend/.env with correct Codespace backend URL
+      ✅ Created helper script: scripts/fix_codespaces_urls.sh
+      ✅ Created comprehensive guides:
+         - README_FIX_404.md - Immediate fix instructions
+         - FIX_PORTS_VISIBILITY.md - Port configuration guide
+         - QUICK_START_CODESPACES.md - Quick reference
+         - CODESPACES_TROUBLESHOOTING.md - Full troubleshooting
+      ✅ Updated main README.md with troubleshooting section
+      ✅ Restarted frontend via supervisor to apply changes
+      
+      CURRENT STATUS:
+      ✅ Backend: Running on port 8001 (supervisor)
+      ✅ Frontend: Running on port 3000 (supervisor)
+      ✅ MongoDB: Running (supervisor)
+      ✅ Configuration: Updated for Codespace (solid-succotash-pj9q755wwr394l4)
+      
+      USER ACTION REQUIRED:
+      ⚠️  Make port 8001 PUBLIC in VS Code PORTS tab:
+         1. Click PORTS tab (bottom panel)
+         2. Right-click port 8001
+         3. Select "Port Visibility" → "Public"
+      
+      URLS:
+      - Frontend: https://solid-succotash-pj9q755wwr394l4-3000.app.github.dev
+      - Backend: https://solid-succotash-pj9q755wwr394l4-8001.app.github.dev
+      
+      Once port 8001 is public, the app should work without any errors!
