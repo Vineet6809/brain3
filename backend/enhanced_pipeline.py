@@ -17,9 +17,9 @@ except (ImportError, ValueError) as e:
 
 try:
     from sentence_transformers import SentenceTransformer
-except ImportError:
+except (ImportError, ValueError) as e:
     SentenceTransformer = None
-    print("Warning: sentence_transformers not available")
+    print(f"Warning: sentence_transformers not available - {str(e)}")
 
 try:
     from transformers import CLIPProcessor, CLIPModel
