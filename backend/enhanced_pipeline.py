@@ -9,12 +9,42 @@ import numpy as np
 from PIL import Image
 import imagehash
 import pytesseract
-import easyocr
-from sentence_transformers import SentenceTransformer
-from transformers import CLIPProcessor, CLIPModel
-import torch
-import faiss
-import spacy
+try:
+    import easyocr
+except ImportError:
+    easyocr = None
+    print("Warning: easyocr not available")
+
+try:
+    from sentence_transformers import SentenceTransformer
+except ImportError:
+    SentenceTransformer = None
+    print("Warning: sentence_transformers not available")
+
+try:
+    from transformers import CLIPProcessor, CLIPModel
+except ImportError:
+    CLIPProcessor = None
+    CLIPModel = None
+    print("Warning: transformers not available")
+
+try:
+    import torch
+except ImportError:
+    torch = None
+    print("Warning: torch not available")
+
+try:
+    import faiss
+except ImportError:
+    faiss = None
+    print("Warning: faiss not available")
+
+try:
+    import spacy
+except ImportError:
+    spacy = None
+    print("Warning: spacy not available")
 from tqdm import tqdm
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo import UpdateOne
