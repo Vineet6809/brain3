@@ -23,10 +23,10 @@ except (ImportError, ValueError) as e:
 
 try:
     from transformers import CLIPProcessor, CLIPModel
-except ImportError:
+except (ImportError, ValueError) as e:
     CLIPProcessor = None
     CLIPModel = None
-    print("Warning: transformers not available")
+    print(f"Warning: transformers not available - {str(e)}")
 
 try:
     import torch
