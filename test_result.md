@@ -291,3 +291,40 @@ agent_communication:
       Backend is running and responding correctly.
       
       Ready for comprehensive frontend and backend testing to verify fix.
+  - agent: "main"
+    message: |
+      DEPLOYMENT PLATFORM MIGRATION - REPLIT TO GITHUB CODESPACES
+      
+      ISSUE IDENTIFIED:
+      - User tried to deploy on Replit but encountered RAM limitations (2GB insufficient)
+      - Application requires heavy ML models (SentenceTransformers, CLIP, torch, FAISS, spaCy)
+      - Node.js version incompatibility (Replit has Node 18, app needs Node 20+)
+      
+      SOLUTION IMPLEMENTED:
+      Created complete GitHub Codespaces setup (4-8GB RAM, better performance)
+      
+      FILES CREATED:
+      ✅ .devcontainer/devcontainer.json - Codespace configuration
+      ✅ .devcontainer/setup.sh - Automatic setup script
+      ✅ scripts/start_codespaces.sh - Application startup script
+      ✅ CODESPACES_SETUP_GUIDE.md - Complete setup documentation
+      ✅ README_CODESPACES.md - Quick start guide
+      
+      FILES REMOVED (Replit-specific):
+      ❌ .replit
+      ❌ replit.nix
+      ❌ replitinstruction.md
+      ❌ REPLIT_SETUP_GUIDE.md
+      ❌ scripts/start_replit.sh
+      
+      MAIN README UPDATED:
+      - Removed all Replit references
+      - Added GitHub Codespaces as Option 1 (recommended)
+      - Updated project structure documentation
+      
+      USER NEXT STEPS:
+      1. Push code to GitHub
+      2. Open in Codespaces (Code → Codespaces → Create codespace)
+      3. Wait for automatic setup (5-10 minutes)
+      4. Run: bash scripts/start_codespaces.sh
+      5. Access via forwarded ports
