@@ -289,13 +289,14 @@ pytest tests/test_ingest.py -v
 │   └── images/              # Test images
 ├── scripts/
 │   ├── install_deps.sh      # Installation script
-│   └── start_replit.sh      # Replit startup script (NEW)
-├── .replit                  # Replit configuration (NEW)
-├── replit.nix               # Replit dependencies (NEW)
-├── replitinstruction.md     # Replit setup guide (NEW)
-├── IMPROVEMENTS_AND_SUGGESTIONS.md  # Feature roadmap (NEW)
-├── docker-compose.yml       # Docker Compose configuration
-└── README.md                # This file
+│   └── start_codespaces.sh  # GitHub Codespaces startup script
+├── .devcontainer/
+│   ├── devcontainer.json    # Codespaces configuration
+│   └── setup.sh             # Automatic setup script for Codespaces
+├── CODESPACES_SETUP_GUIDE.md   # Complete Codespaces setup guide
+├── README_CODESPACES.md        # Quick start for Codespaces
+├── docker-compose.yml          # Docker Compose configuration
+└── README.md                   # This file
 ```
 
 ## Data Storage
