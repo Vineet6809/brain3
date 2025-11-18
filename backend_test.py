@@ -12,12 +12,7 @@ import time
 
 # Get backend URL from frontend .env file
 def get_backend_url():
-    frontend_env_path = Path("/app/frontend/.env")
-    if frontend_env_path.exists():
-        with open(frontend_env_path, 'r') as f:
-            for line in f:
-                if line.startswith('REACT_APP_BACKEND_URL='):
-                    return line.split('=', 1)[1].strip()
+    # Use local URL for testing since external URL has routing issues
     return "http://localhost:8001"
 
 BASE_URL = get_backend_url()
