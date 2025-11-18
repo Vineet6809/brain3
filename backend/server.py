@@ -104,4 +104,6 @@ comprehensive_logger.app_logger.info("=" * 80)
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
+    comprehensive_logger.app_logger.info("Application shutting down")
     client.close()
+    comprehensive_logger.app_logger.info("MongoDB connection closed")
