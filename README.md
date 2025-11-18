@@ -2,13 +2,13 @@
 
 A free-tier, CPU-only image ingestion and graph visualization system that processes images through OCR, generates embeddings, and displays relationships in an interactive 3D graph with **image thumbnails visible directly on nodes**.
 
-## ✨ New Features (v1.1)
+## ✨ Features
 
 - 🎨 **Enhanced 3D Visualization**: Image thumbnails displayed directly on graph nodes for better visual context
 - 🔍 **Real-time Search**: Search across filenames, OCR text, and entities with live highlighting
 - 📦 **Batch Processing**: Command-line script to process entire folders of images
 - 📊 **Progress Tracking**: Visual progress bars for upload operations
-- 🚀 **Replit Ready**: Full Replit integration for instant deployment
+- ☁️ **GitHub Codespaces Ready**: Full devcontainer configuration for instant cloud development
 
 ## Features
 
