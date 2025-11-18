@@ -11,9 +11,9 @@ import imagehash
 import pytesseract
 try:
     import easyocr
-except ImportError:
+except (ImportError, ValueError) as e:
     easyocr = None
-    print("Warning: easyocr not available")
+    print(f"Warning: easyocr not available - {str(e)}")
 
 try:
     from sentence_transformers import SentenceTransformer
