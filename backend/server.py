@@ -14,6 +14,9 @@ from datetime import datetime, timezone
 # from api import api_router as pipeline_router
 from enhanced_api import enhanced_api_router as pipeline_router
 
+# Import comprehensive logging middleware
+from logging_middleware import LoggingMiddleware, comprehensive_logger
+
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
