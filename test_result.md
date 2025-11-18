@@ -242,7 +242,7 @@ test_plan:
     - "External URL routing issue (Kubernetes ingress)"
     - "ML dependencies for image upload functionality"
   stuck_tasks: 
-    - "External URL routing - backend returns 404 via https://error-logger-3.preview.emergentagent.com"
+    - "External URL routing - backend returns 404 via https://codespace-fix.preview.emergentagent.com"
   test_all: false
   test_priority: "high_first"
 

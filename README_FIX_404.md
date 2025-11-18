@@ -3,7 +3,7 @@
 ## 🎯 Your Problem
 
 You're getting `{"detail":"Not Found"}` errors because:
-1. ❌ Frontend `.env` has Emergent platform URL: `https://error-logger-3.preview.emergentagent.com`
+1. ❌ Frontend `.env` has Emergent platform URL: `https://codespace-fix.preview.emergentagent.com`
 2. ❌ This URL doesn't exist in your Codespace
 3. ✅ Your services ARE running (as shown in your screenshot)
 4. ✅ You just need to fix the URL configuration
@@ -42,7 +42,7 @@ nano /app/frontend/.env
 
 Change:
 ```
-REACT_APP_BACKEND_URL=https://error-logger-3.preview.emergentagent.com
+REACT_APP_BACKEND_URL=https://codespace-fix.preview.emergentagent.com
 ```
 
 To (use YOUR URL from PORTS tab):
@@ -86,7 +86,7 @@ curl https://YOUR-CODESPACE-8001.app.github.dev/api/
 
 Your `frontend/.env` file had:
 ```
-REACT_APP_BACKEND_URL=https://error-logger-3.preview.emergentagent.com
+REACT_APP_BACKEND_URL=https://codespace-fix.preview.emergentagent.com
 ```
 
 This is an **Emergent platform URL** that only works when running on their infrastructure.
@@ -131,7 +131,7 @@ REACT_APP_BACKEND_URL=https://{YOUR-CODESPACE}-8001.app.github.dev
 
 NOT:
 ```
-REACT_APP_BACKEND_URL=https://error-logger-3.preview.emergentagent.com
+REACT_APP_BACKEND_URL=https://codespace-fix.preview.emergentagent.com
 ```
 
 ---
