@@ -36,9 +36,9 @@ except (ImportError, ValueError) as e:
 
 try:
     import faiss
-except ImportError:
+except (ImportError, ValueError) as e:
     faiss = None
-    print("Warning: faiss not available")
+    print(f"Warning: faiss not available - {str(e)}")
 
 try:
     import spacy
