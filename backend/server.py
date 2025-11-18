@@ -94,6 +94,14 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Log application startup
+comprehensive_logger.app_logger.info("=" * 80)
+comprehensive_logger.app_logger.info("FastAPI Application Starting")
+comprehensive_logger.app_logger.info(f"Backend URL: Port 8001")
+comprehensive_logger.app_logger.info(f"MongoDB: {os.environ.get('DB_NAME', 'N/A')}")
+comprehensive_logger.app_logger.info(f"CORS Origins: {os.environ.get('CORS_ORIGINS', '*')}")
+comprehensive_logger.app_logger.info("=" * 80)
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
