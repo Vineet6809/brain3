@@ -78,16 +78,25 @@ A free-tier, CPU-only image ingestion and graph visualization system that proces
 
 ## Installation & Setup
 
-### Option 1: Replit (Easiest - One-Click Deploy)
+### Option 1: GitHub Codespaces (Recommended - Cloud Development)
 
-[![Run on Replit](https://replit.com/badge/github/yourusername/image-knowledge-graph)](https://replit.com/@yourusername/image-knowledge-graph)
+**Best for ML applications - 4GB+ RAM, automatic setup**
 
-1. Click the "Run on Replit" button above
-2. Wait for automatic setup (5-10 minutes for first run)
-3. The app will start automatically
-4. Access the web interface from the Replit webview
+1. Push your code to GitHub
+2. Click **Code** → **Codespaces** → **Create codespace on main**
+3. Wait 5-10 minutes for automatic setup
+4. Run: `bash scripts/start_codespaces.sh`
+5. Access via forwarded ports (3000 for frontend, 8001 for backend)
 
-**See `replitinstruction.md` for detailed Replit setup guide.**
+**See [CODESPACES_SETUP_GUIDE.md](./CODESPACES_SETUP_GUIDE.md) for detailed instructions.**
+
+The devcontainer will automatically:
+- ✅ Install all system dependencies (Tesseract, MongoDB, etc.)
+- ✅ Set up Python virtual environment
+- ✅ Install all Python packages and ML models
+- ✅ Install Node.js dependencies
+- ✅ Configure environment variables
+- ✅ Forward ports with HTTPS
 
 ### Option 2: Local Installation (with virtual environment)
 
