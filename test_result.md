@@ -109,12 +109,44 @@ user_problem_statement: |
 backend:
   - task: "Image upload API endpoint"
     implemented: true
-    working: true
+    working: false
     file: "backend/enhanced_api.py"
     stuck_count: 0
     priority: "high"
     needs_retesting: false
     status_history:
+      - working: false
+        agent: "testing"
+        comment: |
+          COMPREHENSIVE BACKEND TESTING COMPLETED
+          
+          CRITICAL ISSUE IDENTIFIED AND PARTIALLY FIXED:
+          - Backend was failing to start due to torch CUDA dependency issues
+          - Made ML imports optional to allow backend service to start
+          - Installed missing scipy dependency
+          
+          API ENDPOINT STATUS:
+          ✅ Backend service now starts and runs properly
+          ✅ All endpoints return proper JSON with correct Content-Type headers
+          ✅ Error responses return proper JSON format (fixes frontend clone error)
+          ❌ Image upload fails due to missing ML model dependencies (SentenceTransformer, etc.)
+          
+          DETAILED TEST RESULTS:
+          - GET /api/graph: ✅ 200 OK, proper JSON
+          - GET /api/categories: ✅ 200 OK, proper JSON  
+          - GET /api/connection-types: ✅ 200 OK, proper JSON
+          - GET /api/stats: ✅ 200 OK, proper JSON
+          - POST /api/build-index: ✅ 200 OK, proper JSON
+          - GET /api/search: ✅ 200 OK, proper JSON
+          - POST /api/ingest: ❌ 500 error (missing ML dependencies) but returns proper JSON
+          - Error handling: ✅ All errors return proper JSON with {"detail": "message"}
+          
+          ROOT CAUSE OF USER'S ERROR FIXED:
+          Backend now returns proper JSON responses for all endpoints including errors.
+          This resolves the "Response body is already used" error in frontend.
+          
+          REMAINING ISSUE: External URL routing (404 from Kubernetes ingress)
+          Backend works locally but external URL returns 404 - infrastructure issue.
       - working: true
         agent: "main"
         comment: "API endpoint at /api/ingest is working correctly. Returns proper JSON responses."
