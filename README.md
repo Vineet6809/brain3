@@ -2,6 +2,24 @@
 
 A free-tier, CPU-only image ingestion and graph visualization system that processes images through OCR, generates embeddings, and displays relationships in an interactive 3D graph with **image thumbnails visible directly on nodes**.
 
+---
+
+## 🚨 Having 404 Errors in GitHub Codespaces?
+
+**Quick Fix:** Run this command:
+```bash
+bash scripts/fix_codespaces_urls.sh
+```
+
+Then restart services:
+```bash
+bash scripts/start_codespaces.sh
+```
+
+**📖 Full troubleshooting guide:** See [README_FIX_404.md](./README_FIX_404.md)
+
+---
+
 ## ✨ Features
 
 - 🎨 **Enhanced 3D Visualization**: Image thumbnails displayed directly on graph nodes for better visual context
